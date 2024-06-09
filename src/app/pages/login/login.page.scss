@@ -21,6 +21,9 @@ ion-item{
 }
 .reset-password{
     display: flex;
+    a{
+        text-decoration: none;
+    }
 }
 .singup{
     display: flex;
