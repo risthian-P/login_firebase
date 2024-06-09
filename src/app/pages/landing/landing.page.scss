@@ -1,5 +1,13 @@
 .container{
     text-align: center;
-    margin-top: 30%;
-
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 10px;
+    .responsive{
+        width: 70%;
+        height: auto;
+        display: inline-block;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
 }
