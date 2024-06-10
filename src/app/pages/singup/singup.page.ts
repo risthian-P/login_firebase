@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Route, Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { AutheticationService } from 'src/app/authetication.service';
 
@@ -13,7 +14,7 @@ export class SingupPage implements OnInit {
   regForm : FormGroup
 
 
-    constructor(public formBuilder: FormBuilder, public loadingCtrl: LoadingController, public authService:AutheticationService) { }
+    constructor(public formBuilder: FormBuilder, public loadingCtrl: LoadingController, public authService:AutheticationService, public router: Router) { }
 
   ngOnInit() {
     this.regForm = this.formBuilder.group({
@@ -37,7 +38,17 @@ export class SingupPage implements OnInit {
     const loading = await this.loadingCtrl.create();
     await loading.present();
     if(this.regForm?.valid){
-      // const user = await this.authService.registerUser(email,password)
+      // evalua si esta o no el email pero esto se realiza despues del login, antes hay que comentar para que no de problemas
+      const user = await this.authService.registerUser(this.regForm.value.email, this.regForm.value.password).catch((error)=>{
+        console.log(error);
+        loading.dismiss()
+      })
+      if(user){
+        loading.dismiss()
+        this.router.navigate(['/home'])
+      }else{
+        console.log("provide correct value")
+      }
     }
   }
 
